@@ -1,17 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+class App extends React.Component {
 
-function Cartoon(props){
-  return <h>Hello, {props.name} you are wellcome on {props.show}</h>
-}
-function Show(){
-  return<div>
-      <h1><Cartoon name='Rowan atkinson' show='Mr. Bean'/></h1>
+   constructor(props){
+       super(props);
+       this.state={ count: 1}
+   }
 
-      <h2><Cartoon name='Amir Khan' show='Dhoom'/></h2>
-  </div>
+  onclick(type){
+      this.setState(prevState => {
+         return {count: type == 'add' ? prevState.count + 1: prevState.count - 1}
+      });
+  }
+
+   render() {
+    return (
+      <div>
+        Count: {this.state.count}
+        <br/>
+        <div style={{marginTop: '100px'}}/>
+        <input type='button' onClick={this.onclick.bind(this, 'add')} value='Inc'/>
+        <input type='button' onClick={this.onclick.bind(this, 'sub')} value='Dec'/>
+       </div>
+     )
+   }
 }
-  ReactDOM.render(
-    <Show/>,
-      document.getElementById('root')
-    );
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
